@@ -37,6 +37,9 @@
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].Producator.NumeProducator)
             </th>
+            <th class="text-center align-middle">
+                @Html.DisplayNameFor(model => model.Produs[0].ProdusCategorii)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -69,6 +72,14 @@
             </td>
             <td class="text-center align-middle">
                 @Html.DisplayFor(modelItem => item.Producator.NumeProducator)
+            </td>
+            <td class="text-center align-middle">
+                        @{
+                            foreach (var categorie in item.ProdusCategorii)
+                            {
+                                @categorie.Categorie.ID @: @categorie.Categorie.NumeCategorie <br />
+                            }
+                        }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

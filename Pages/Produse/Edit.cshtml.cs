@@ -12,7 +12,7 @@ using System.Security.Policy;
 
 namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
 {
-    public class EditModel : PageModel
+    public class EditModel : ProdusCategoriiPageModel
     {
         private readonly Farkas_Szabolcs_ProiectExamen.Data.Farkas_Szabolcs_ProiectExamenContext _context;
 
@@ -31,50 +31,57 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
                 return NotFound();
             }
 
-            var produs =  await _context.Produs.FirstOrDefaultAsync(m => m.ID == id);
-            if (produs == null)
+           
+                Produs = await _context.Produs
+               .Include(b => b.Producator)
+               .Include(b => b.ProdusCategorii).ThenInclude(b => b.Categorie)
+               .AsNoTracking()
+               .FirstOrDefaultAsync(m => m.ID == id);
+           
+            if (Produs == null)
             {
                 return NotFound();
             }
-            Produs = produs;
+
+            PopulateAssignedCategorieData(_context, Produs);
+
+
             ViewData["ProducatorID"] = new SelectList(_context.Set<Producator>(), "ID","NumeProducator");
 
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedCategorii)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Produs).State = EntityState.Modified;
-
-            try
+            var produsToUpdate = await _context.Produs
+            .Include(i => i.Producator)
+            .Include(i => i.ProdusCategorii)
+            .ThenInclude(i => i.Categorie)
+            .FirstOrDefaultAsync(s => s.ID == id);
+            if (produsToUpdate == null)
             {
+                return NotFound();
+            }
+            if (await TryUpdateModelAsync<Produs>(
+            produsToUpdate,
+            "Produs",
+            i => i.Denumire, i => i.Descriere,i => i.Origine,
+            i => i.Price, i => i.Pret, i => i.NrBuc, i => i.Valabilitate, i => i.ProducatorID))
+            {
+                UpdateProdusCategorii(_context, selectedCategorii, produsToUpdate);
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProdusExists(Produs.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool ProdusExists(int id)
-        {
-          return _context.Produs.Any(e => e.ID == id);
+            
+            UpdateProdusCategorii(_context, selectedCategorii, produsToUpdate);
+            PopulateAssignedCategorieData(_context, produsToUpdate);
+            return Page();
         }
     }
+  
 }
+

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Farkas_Szabolcs_ProiectExamen.Data;
 using Farkas_Szabolcs_ProiectExamen.Models;
 
-namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
+namespace Farkas_Szabolcs_ProiectExamen.Pages.Categorii
 {
     public class IndexModel : PageModel
     {
@@ -19,17 +19,13 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
             _context = context;
         }
 
-        public IList<Produs> Produs { get;set; } = default!;
+        public IList<Categorie> Categorie { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Produs != null)
+            if (_context.Categorie != null)
             {
-                Produs = await _context.Produs
-                    .Include(b=>b.Producator)
-                    .Include(b => b.ProdusCategorii)
-                    .ThenInclude(b => b.Categorie)
-                    .ToListAsync();
+                Categorie = await _context.Categorie.ToListAsync();
             }
         }
     }

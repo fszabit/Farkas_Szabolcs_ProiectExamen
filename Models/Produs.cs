@@ -37,6 +37,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Models
 
         public int? ProducatorID { get; set; }
         public Producator? Producator { get; set; }
+        public ICollection<ProdusCategorie> ProdusCategorii { get; set; }
 
     }
 }
