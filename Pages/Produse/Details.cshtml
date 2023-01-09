@@ -1,0 +1,67 @@
+﻿@page
+@model Farkas_Szabolcs_ProiectExamen.Pages.Produse.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Produs</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Denumire)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Denumire)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Descriere)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Descriere)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Origine)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Origine)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Pret)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Pret)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.NrBuc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.NrBuc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Valabilitate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Valabilitate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Produs.Producator.NumeProducator)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Produs.Producator.NumeProducator)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Produs?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

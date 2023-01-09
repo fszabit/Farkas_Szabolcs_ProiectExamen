@@ -1,0 +1,71 @@
+﻿@page
+@model Farkas_Szabolcs_ProiectExamen.Pages.Produse.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Produs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Produs.ID" />
+            <div class="form-group">
+                <label asp-for="Produs.Denumire" class="control-label"></label>
+                <input asp-for="Produs.Denumire" class="form-control" />
+                <span asp-validation-for="Produs.Denumire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.Descriere" class="control-label"></label>
+                <input asp-for="Produs.Descriere" class="form-control" />
+                <span asp-validation-for="Produs.Descriere" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.Origine" class="control-label"></label>
+                <input asp-for="Produs.Origine" class="form-control" />
+                <span asp-validation-for="Produs.Origine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.Price" class="control-label"></label>
+                <input asp-for="Produs.Price" class="form-control" />
+                <span asp-validation-for="Produs.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.Pret" class="control-label"></label>
+                <input asp-for="Produs.Pret" class="form-control" />
+                <span asp-validation-for="Produs.Pret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.NrBuc" class="control-label"></label>
+                <input asp-for="Produs.NrBuc" class="form-control" />
+                <span asp-validation-for="Produs.NrBuc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.Valabilitate" class="control-label"></label>
+                <input asp-for="Produs.Valabilitate" class="form-control" />
+                <span asp-validation-for="Produs.Valabilitate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.ProducatorID" class="control-label">Producatorul</label>
+                <select asp-for="Produs.ProducatorID" class="form-control" asp-items="ViewBag.ProducatorID">
+                </select>
+                <span asp-validation-for="Produs.ProducatorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
