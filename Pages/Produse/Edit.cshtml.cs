@@ -30,8 +30,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
             {
                 return NotFound();
             }
-
-           
                 Produs = await _context.Produs
                .Include(b => b.Producator)
                .Include(b => b.ProdusCategorii).ThenInclude(b => b.Categorie)
