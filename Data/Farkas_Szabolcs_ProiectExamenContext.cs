@@ -21,5 +21,9 @@ namespace Farkas_Szabolcs_ProiectExamen.Data
         public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Categorie> Categorie { get; set; }
 
         public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Magazin> Magazin { get; set; }
+
+        public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Cumparator> Cumparator { get; set; }
+
+        public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Rezervare> Rezervare { get; set; }
     }
 }

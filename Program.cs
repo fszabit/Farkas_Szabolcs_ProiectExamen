@@ -1,12 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Farkas_Szabolcs_ProiectExamen.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Farkas_Szabolcs_ProiectExamenContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Farkas_Szabolcs_ProiectExamenContext") ?? throw new InvalidOperationException("Connection string 'Farkas_Szabolcs_ProiectExamenContext' not found.")));
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Farkas_Szabolcs_ProiectExamenContext") ?? throw new InvalidOperationException("Connection string 'Farkas_Szabolcs_ProiectExamenContext' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 
@@ -22,6 +26,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 

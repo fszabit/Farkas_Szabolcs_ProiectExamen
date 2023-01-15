@@ -4,6 +4,7 @@ using Farkas_Szabolcs_ProiectExamen.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Farkas_Szabolcs_ProiectExamen.Migrations
 {
     [DbContext(typeof(Farkas_Szabolcs_ProiectExamenContext))]
-    partial class Farkas_Szabolcs_ProiectExamenContextModelSnapshot : ModelSnapshot
+    [Migration("20230115144819_Rezervari")]
+    partial class Rezervari
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,35 +38,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Categorie");
-                });
-
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Cumparator", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Adresa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NrTel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prenume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Cumparator");
                 });
 
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Magazin", b =>
@@ -172,32 +145,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     b.ToTable("ProdusCategorie");
                 });
 
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Rezervare", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<int?>("CumparatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Datarezervarii")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProdusID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CumparatorID");
-
-                    b.HasIndex("ProdusID");
-
-                    b.ToTable("Rezervare");
-                });
-
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Produs", b =>
                 {
                     b.HasOne("Farkas_Szabolcs_ProiectExamen.Models.Magazin", "Magazin")
@@ -236,29 +183,9 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     b.Navigation("Produs");
                 });
 
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Rezervare", b =>
-                {
-                    b.HasOne("Farkas_Szabolcs_ProiectExamen.Models.Cumparator", "Cumparator")
-                        .WithMany("Rezervari")
-                        .HasForeignKey("CumparatorID");
-
-                    b.HasOne("Farkas_Szabolcs_ProiectExamen.Models.Produs", "Produs")
-                        .WithMany()
-                        .HasForeignKey("ProdusID");
-
-                    b.Navigation("Cumparator");
-
-                    b.Navigation("Produs");
-                });
-
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Categorie", b =>
                 {
                     b.Navigation("ProdusCategorii");
-                });
-
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Cumparator", b =>
-                {
-                    b.Navigation("Rezervari");
                 });
 
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Magazin", b =>
