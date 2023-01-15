@@ -28,7 +28,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
         {
            
             ViewData["ProducatorID"] = new SelectList(_context.Set<Producator>(), "ID", "NumeProducator");
-
+            ViewData["MagazinID"] = new SelectList(_context.Set<Magazin>(), "ID", "NumeMagazin");
 
             var produs = new Produs();
             produs.ProdusCategorii = new List<ProdusCategorie>();

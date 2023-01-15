@@ -1,11 +1,11 @@
 ﻿@page
-@model Farkas_Szabolcs_ProiectExamen.Pages.Producatori.IndexModel
+@model Farkas_Szabolcs_ProiectExamen.Pages.Magazine.IndexModel
 
 @{
-    ViewData["Title"] = "Producatori";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Producatorii in contract cu magazinele Lidl din Zalau:</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,16 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Producator[0].NumeProducator)
+                @Html.DisplayNameFor(model => model.Magazin[0].NumeMagazin)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Producator) {
+@foreach (var item in Model.Magazin) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NumeProducator)
+                @Html.DisplayFor(modelItem => item.NumeMagazin)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

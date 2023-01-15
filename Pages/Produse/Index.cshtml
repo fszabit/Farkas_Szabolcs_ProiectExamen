@@ -1,20 +1,32 @@
-﻿@page
+﻿@page 
 @model Farkas_Szabolcs_ProiectExamen.Pages.Produse.IndexModel
 
 @{
     ViewData["Title"] = "Produse";
 }
 
-<h1>Produsele disponibile:</h1>
-
+<h1>Produsele disponibile la magazinele Lidl din Zalau:</h1>
+<h7>*Pentru a afla numarul de bucati disponibile dintr-un produs si magazinul la care puteti sa l gasiti apasati pe <i style="color:dodgerblue">Details</i></h7>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Cauta un produs dupa Denumire sau dupa Producator:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table table-hover table-bordered table-responsive-md">
     <thead>
         <tr>
             <th class="text-center align-middle">
+                 <a asp-page="./Index" asp-route-sortOrder="@Model.DenumireSort">
                 @Html.DisplayNameFor(model => model.Produs[0].Denumire)
+                </a>
             </th>
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].Descriere)
@@ -28,9 +40,11 @@
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].Pret)
             </th>
+            <!--
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].NrBuc)
             </th>
+            -->
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].Valabilitate)
             </th>
@@ -40,15 +54,24 @@
             <th class="text-center align-middle">
                 @Html.DisplayNameFor(model => model.Produs[0].ProdusCategorii)
             </th>
+            <!--
+            <th class="text-center align-middle">
+                @Html.DisplayNameFor(model => model.Produs[0].Magazin.NumeMagazin)
+            </th> -->
             <th></th>
         </tr>
     </thead>
     <tbody>
         
-@foreach (var item in Model.Produs) {
-            if ( item.NrBuc > 0)
+@foreach (var item in Model.ProdusD.Produse) {
+
+            string selectedRow = "";
+            if (item.ID == Model.ProdusID)
             {
-        <tr>
+                selectedRow = "table-success";
+            }
+
+            <tr class ="@selectedRow">
             <td class="text-center align-middle">
                 @Html.DisplayFor(modelItem => item.Denumire)
             </td>
@@ -64,9 +87,10 @@
             <td class="text-center align-middle">
                 @Html.DisplayFor(modelItem => item.Pret) lei
             </td>
+            <!--
             <td class="text-center align-middle">
                 @Html.DisplayFor(modelItem => item.NrBuc)
-            </td>
+                </td> -->
             <td class="text-center align-middle">
                 @Html.DisplayFor(modelItem => item.Valabilitate)
             </td>
@@ -77,16 +101,20 @@
                         @{
                             foreach (var categorie in item.ProdusCategorii)
                             {
-                                @categorie.Categorie.ID @: @categorie.Categorie.NumeCategorie <br />
+                                 @categorie.Categorie.NumeCategorie <br />
                             }
                         }
             </td>
+               <!--
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.Magazin.NumeMagazin)
+                </td>  -->
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
-}}
+}
     </tbody>
 </table>

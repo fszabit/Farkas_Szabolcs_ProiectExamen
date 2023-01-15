@@ -4,6 +4,7 @@ using Farkas_Szabolcs_ProiectExamen.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Farkas_Szabolcs_ProiectExamen.Migrations
 {
     [DbContext(typeof(Farkas_Szabolcs_ProiectExamenContext))]
-    partial class Farkas_Szabolcs_ProiectExamenContextModelSnapshot : ModelSnapshot
+    [Migration("20230109205456_Edit")]
+    partial class Edit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,28 +33,12 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("NumeCategorie")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Categorie");
-                });
-
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Magazin", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("NumeMagazin")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Magazin");
+                    b.ToTable("Categorie");
                 });
 
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Producator", b =>
@@ -64,7 +50,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("NumeProducator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -88,9 +73,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     b.Property<string>("Descriere")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MagazinID")
-                        .HasColumnType("int");
-
                     b.Property<long>("NrBuc")
                         .HasColumnType("bigint");
 
@@ -110,8 +92,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("MagazinID");
 
                     b.HasIndex("ProducatorID");
 
@@ -143,15 +123,9 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
 
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Produs", b =>
                 {
-                    b.HasOne("Farkas_Szabolcs_ProiectExamen.Models.Magazin", "Magazin")
-                        .WithMany("Produse")
-                        .HasForeignKey("MagazinID");
-
                     b.HasOne("Farkas_Szabolcs_ProiectExamen.Models.Producator", "Producator")
                         .WithMany("Produse")
                         .HasForeignKey("ProducatorID");
-
-                    b.Navigation("Magazin");
 
                     b.Navigation("Producator");
                 });
@@ -178,11 +152,6 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Categorie", b =>
                 {
                     b.Navigation("ProdusCategorii");
-                });
-
-            modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Magazin", b =>
-                {
-                    b.Navigation("Produse");
                 });
 
             modelBuilder.Entity("Farkas_Szabolcs_ProiectExamen.Models.Producator", b =>

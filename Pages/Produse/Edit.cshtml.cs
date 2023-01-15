@@ -26,25 +26,26 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Produs == null)
+            if (id == null)
             {
                 return NotFound();
             }
-                Produs = await _context.Produs
-               .Include(b => b.Producator)
-               .Include(b => b.ProdusCategorii).ThenInclude(b => b.Categorie)
-               .AsNoTracking()
-               .FirstOrDefaultAsync(m => m.ID == id);
-           
-            if (Produs == null)
+            var produs = await _context.Produs
+                .Include(b => b.Producator)
+                .Include(b => b.Magazin)
+                .Include(b => b.ProdusCategorii).ThenInclude(b => b.Categorie)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+          
+            if (produs == null)
             {
                 return NotFound();
             }
 
+            Produs = produs;
             PopulateAssignedCategorieData(_context, Produs);
-
-
-            ViewData["ProducatorID"] = new SelectList(_context.Set<Producator>(), "ID","NumeProducator");
+            ViewData["ProducatorID"] = new SelectList(_context.Set<Producator>(), "ID", "NumeProducator");
+            ViewData["MagazinID"] = new SelectList(_context.Set<Magazin>(), "ID", "NumeMagazin");
 
             return Page();
         }
@@ -57,6 +58,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
             }
             var produsToUpdate = await _context.Produs
             .Include(i => i.Producator)
+            .Include(i => i.Magazin)
             .Include(i => i.ProdusCategorii)
             .ThenInclude(i => i.Categorie)
             .FirstOrDefaultAsync(s => s.ID == id);
@@ -64,22 +66,26 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
             {
                 return NotFound();
             }
-            if (await TryUpdateModelAsync<Produs>(
-            produsToUpdate,
-            "Produs",
-            i => i.Denumire, i => i.Descriere,i => i.Origine,
-            i => i.Price, i => i.Pret, i => i.NrBuc, i => i.Valabilitate, i => i.ProducatorID))
-            {
-                UpdateProdusCategorii(_context, selectedCategorii, produsToUpdate);
+
+              if (await TryUpdateModelAsync<Produs>(
+                 produsToUpdate,
+                 "Produs",
+                 i => i.Denumire, i => i.Descriere, i => i.Origine,
+                 i => i.Price, i => i.Pret, i => i.NrBuc, i => i.Valabilitate, i => i.ProducatorID, i => i.MagazinID))
+                 { 
+           
+
+               UpdateProdusCategorii(_context, selectedCategorii, produsToUpdate);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
-            }
-            
+           }
+          
             UpdateProdusCategorii(_context, selectedCategorii, produsToUpdate);
             PopulateAssignedCategorieData(_context, produsToUpdate);
             return Page();
         }
     }
-  
 }
+
+
 

@@ -11,7 +11,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Models
         {
             var allCategorii = context.Categorie;
             var produsCategorii = new HashSet<int>(
-            produs.ProdusCategorii.Select(c => c.CategorieID)); //
+            produs.ProdusCategorii.Select(c => c.CategorieID)); 
             AssignedCategorieDataList = new List<AssignedCategorieData>();
             foreach (var cat in allCategorii)
             {

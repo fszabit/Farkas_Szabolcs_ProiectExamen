@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Farkas_Szabolcs_ProiectExamen.Data;
 using Farkas_Szabolcs_ProiectExamen.Models;
 
-namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
+namespace Farkas_Szabolcs_ProiectExamen.Pages.Magazine
 {
     public class DetailsModel : PageModel
     {
@@ -19,25 +19,23 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
             _context = context;
         }
 
-      public Produs Produs { get; set; }
+      public Magazin Magazin { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Produs == null)
+            if (id == null || _context.Magazin == null)
             {
                 return NotFound();
             }
 
-            var produs = await _context.Produs.Include(b=>b.Producator)
-                .Include(b => b.Magazin)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (produs == null)
+            var magazin = await _context.Magazin.FirstOrDefaultAsync(m => m.ID == id);
+            if (magazin == null)
             {
                 return NotFound();
             }
             else 
             {
-                Produs = produs;
+                Magazin = magazin;
             }
             return Page();
         }

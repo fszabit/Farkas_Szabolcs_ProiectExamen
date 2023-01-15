@@ -15,29 +15,34 @@ namespace Farkas_Szabolcs_ProiectExamen.Models
 
         [Required, StringLength(150, MinimumLength = 3)]
         [Display(Name = "Denumirea produsului")]
-        public string? Denumire { get; set; }
+        public string Denumire { get; set; }
 
-        public string? Descriere { get; set; }
-        public string? Origine { get; set; }
+        public string Descriere { get; set; }
+        public string Origine { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
         [Display(Name = "Pret")]
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
         [Display(Name = "Pret cu aplicatia Lidl Plus")]
-        public decimal? Pret { get; set; }
+        public decimal Pret { get; set; }
 
         [Display(Name = "Numarul de bucati disponibile")]
         public uint NrBuc { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Valabil pana la data de")]
-        public DateTime? Valabilitate { get; set; }
+        public DateTime Valabilitate { get; set; }
 
-        public int? ProducatorID { get; set; }
-        public Producator? Producator { get; set; }
+       public int ProducatorID { get; set; }
+       public Producator? Producator { get; set; }
+
+        [Display(Name = "Categorie")]
         public ICollection<ProdusCategorie> ProdusCategorii { get; set; }
+
+        public int MagazinID { get; set; }
+        public Magazin? Magazin { get; set; }
 
     }
 }

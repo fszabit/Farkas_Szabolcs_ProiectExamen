@@ -19,5 +19,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Data
         public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Producator> Producator { get; set; }
 
         public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Categorie> Categorie { get; set; }
+
+        public DbSet<Farkas_Szabolcs_ProiectExamen.Models.Magazin> Magazin { get; set; }
     }
 }

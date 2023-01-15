@@ -49,12 +49,13 @@
                 <input asp-for="Produs.Valabilitate" class="form-control" />
                 <span asp-validation-for="Produs.Valabilitate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           <div class="form-group">
                 <label asp-for="Produs.ProducatorID" class="control-label">Producatorul</label>
                 <select asp-for="Produs.ProducatorID" class="form-control" asp-items="ViewBag.ProducatorID">
                 </select>
                 <span asp-validation-for="Produs.ProducatorID" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                <div class="table">
                  <table>
@@ -80,6 +81,12 @@
                    }
                  </table>
                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produs.MagazinID" class="control-label">Disponibil la magazinul</label>
+                <select asp-for="Produs.MagazinID" class="form-control" asp-items="ViewBag.MagazinID">
+                </select>
+                <span asp-validation-for="Produs.MagazinID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

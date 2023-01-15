@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Farkas_Szabolcs_ProiectExamen.Data;
 using Farkas_Szabolcs_ProiectExamen.Models;
+using System.Net;
 
 namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
 {
@@ -20,17 +21,48 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Produse
         }
 
         public IList<Produs> Produs { get;set; } = default!;
+        public ProdusData ProdusD { get; set; }
+        public int ProdusID { get; set; }
+       
 
-        public async Task OnGetAsync()
+        public string DenumireSort { get; set; }
+
+        public string CurrentFilter { get; set; }
+
+        public async Task OnGetAsync( string sortOrder, string searchString)
         {
-            if (_context.Produs != null)
-            {
-                Produs = await _context.Produs
+
+            ProdusD = new ProdusData();
+
+            DenumireSort = String.IsNullOrEmpty(sortOrder) ? "denumire_desc" : "";
+           
+            CurrentFilter = searchString;
+
+                ProdusD.Produse = await _context.Produs
                     .Include(b=>b.Producator)
+                    .Include(b => b.Magazin)
                     .Include(b => b.ProdusCategorii)
                     .ThenInclude(b => b.Categorie)
+                    .AsNoTracking()
+                    .OrderBy(b => b.Denumire)
                     .ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ProdusD.Produse = ProdusD.Produse.Where(s => s.Denumire.Contains(searchString)||s.Producator.NumeProducator.Contains(searchString));
             }
+           
+
+            switch (sortOrder)
+            {
+                case "denumire_desc":
+                    ProdusD.Produse = ProdusD.Produse.OrderByDescending(s =>s.Denumire);
+                    break;
+               
+
+
+            }
+
         }
     }
 }
