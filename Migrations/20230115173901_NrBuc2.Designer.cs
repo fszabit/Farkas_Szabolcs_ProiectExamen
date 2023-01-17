@@ -4,6 +4,7 @@ using Farkas_Szabolcs_ProiectExamen.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Farkas_Szabolcs_ProiectExamen.Migrations
 {
     [DbContext(typeof(Farkas_Szabolcs_ProiectExamenContext))]
-    partial class Farkas_Szabolcs_ProiectExamenContextModelSnapshot : ModelSnapshot
+    [Migration("20230115173901_NrBuc2")]
+    partial class NrBuc2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,8 +191,8 @@ namespace Farkas_Szabolcs_ProiectExamen.Migrations
                     b.Property<int?>("ProdusID")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ProdusNrBuc")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ProdusNrBuc")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

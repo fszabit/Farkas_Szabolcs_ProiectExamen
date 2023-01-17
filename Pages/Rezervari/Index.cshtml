@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -17,6 +18,9 @@
                 @Html.DisplayNameFor(model => model.Rezervare[0].Cumparator)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Rezervare[0].ProdusNrBuc)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Rezervare[0].Produs)
             </th>
             <th>
@@ -29,7 +33,10 @@
 @foreach (var item in Model.Rezervare) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Cumparator.ID)
+                @Html.DisplayFor(modelItem => item.Cumparator.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdusNrBuc)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Produs.Denumire)

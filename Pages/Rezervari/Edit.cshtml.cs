@@ -36,7 +36,7 @@ namespace Farkas_Szabolcs_ProiectExamen.Pages.Rezervari
                 return NotFound();
             }
             Rezervare = rezervare;
-           ViewData["CumparatorID"] = new SelectList(_context.Cumparator, "ID", "ID");
+           ViewData["CumparatorID"] = new SelectList(_context.Cumparator, "ID", "FullName");
            ViewData["ProdusID"] = new SelectList(_context.Produs, "ID", "Denumire");
             return Page();
         }
